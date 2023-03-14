@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro de Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding-top>
+  <form (ngSubmit)="submit()">
+    <ion-item no-padding>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input [(ngModel)]="cliente.nome" name="nome" type="text"></ion-input>
+    </ion-item>
+  
+    <ion-item no-padding>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="cliente.email" name="email" type="email"></ion-input>  
+    </ion-item>
+  
+    <ion-item no-padding>
+      <ion-label position="floating">Telefone</ion-label>
+      <ion-input [(ngModel)]="cliente.telefone" name="telefone" type="tel"></ion-input>
+    </ion-item>
+    
+    <ion-item no-padding>
+      <ion-label position="floating">Renda</ion-label>
+      <ion-input [(ngModel)]="cliente.renda" name="renda" type="number"text-right></ion-input>
+    </ion-item>
+  
+    <ion-item no-padding>
+      <ion-label position="floating">Nascimento</ion-label>
+      <ion-input [(ngModel)]="cliente.nascimento" name="nascimento" type="text"></ion-input>
+    </ion-item>
+  
+    <ion-button shape="round" color="primary" expand="block" padding type="submit()">
+      Confirmar
+    </ion-button>
+  </form>
+</ion-content>
