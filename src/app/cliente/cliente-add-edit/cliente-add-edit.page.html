@@ -5,33 +5,53 @@
 </ion-header>
 
 <ion-content padding-top>
-  <form (ngSubmit)="submit()">
+  <form #form="ngForm" [formGroup]="clienteForm" (submit)="submit()">
     <ion-item no-padding>
       <ion-label position="floating">Nome</ion-label>
-      <ion-input [(ngModel)]="cliente.nome" name="nome" type="text"></ion-input>
+      <ion-input formControlName="nome" type="text" [class.invalid]="!clienteForm.controls['nome'].valid && clienteForm.controls['nome'].touched"></ion-input>
+
+      <small class="error-message" *ngIf="(clienteForm.get('nome')?.errors?.['required'] || clienteForm.get('nome')?.errors?.['minlength'] || clienteForm.get('nome')?.errors?.['maxlength']) && (form.submitted || clienteForm.get('nome')?.touched)">
+        Informe o nome (3 a 50 caracteres)
+      </small>
     </ion-item>
   
     <ion-item no-padding>
       <ion-label position="floating">Email</ion-label>
-      <ion-input [(ngModel)]="cliente.email" name="email" type="email"></ion-input>  
+      <ion-input formControlName="email" type="email" [class.invalid]="!clienteForm.controls['email'].valid && clienteForm.controls['email'].touched"></ion-input>  
+
+      <small class="error-message" *ngIf="(clienteForm.get('email')?.errors?.['required'] || clienteForm.get('email')?.errors?.['email']) && (form.submitted || clienteForm.get('email')?.touched)">
+        Informe um email válido
+      </small>
     </ion-item>
   
     <ion-item no-padding>
       <ion-label position="floating">Telefone</ion-label>
-      <ion-input [(ngModel)]="cliente.telefone" name="telefone" type="tel"></ion-input>
+      <ion-input formControlName="telefone" type="tel" [class.invalid]="!clienteForm.controls['telefone'].valid && clienteForm.controls['telefone'].touched"></ion-input>
+
+      <small class="error-message" *ngIf="clienteForm.get('telefone')?.errors?.['required'] && (form.submitted || clienteForm.get('telefone')?.touched)">
+        Informe o telefone
+      </small>
     </ion-item>
     
     <ion-item no-padding>
       <ion-label position="floating">Renda</ion-label>
-      <ion-input [(ngModel)]="cliente.renda" name="renda" type="number"text-right></ion-input>
+      <ion-input formControlName="renda" type="number" text-right [class.invalid]="!clienteForm.controls['renda'].valid && clienteForm.controls['renda'].touched"></ion-input>
+
+      <small class="error-message" *ngIf="clienteForm.get('renda')?.errors?.['required'] || clienteForm.get('renda')?.errors?.['min'] && (form.submitted || clienteForm.get('renda')?.touched)">
+        Informe uma renda positiva
+      </small>
     </ion-item>
   
     <ion-item no-padding>
       <ion-label position="floating">Nascimento</ion-label>
-      <ion-input [(ngModel)]="cliente.nascimento" name="nascimento" type="text"></ion-input>
+      <ion-input formControlName="nascimento" type="text" [class.invalid]="!clienteForm.controls['nascimento'].valid && clienteForm.controls['nascimento'].touched"></ion-input>
+
+      <small class="error-message" *ngIf="clienteForm.get('nascimento')?.errors?.['required'] && (form.submitted || clienteForm.get('nascimento')?.touched)">
+        Informe uma data de nascimento
+      </small>
     </ion-item>
   
-    <ion-button shape="round" color="primary" expand="block" padding type="submit()">
+    <ion-button shape="round" color="primary" expand="block" padding type="submit" [disabled]="!clienteForm.valid">
       Confirmar
     </ion-button>
   </form>
