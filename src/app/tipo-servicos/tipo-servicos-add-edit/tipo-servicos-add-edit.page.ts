@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TipoServico } from 'src/app/models/tipo-servico.model';
 import { TipoServicosService } from 'src/app/tipos-services.service';
+import { ToastService } from 'src/app/toast.service';
 
 @Component({
   selector: 'app-tipo-servicos-add-edit',
@@ -18,6 +19,8 @@ export class TipoServicosAddEditPage implements OnInit {
 
   submit () {
     this.tipoServicoService.update(this.tiposServicosForm.value);
+    this.toastService.presentToast('Gravação bem sucedida', 3000, 'top');
+    this.router.navigateByUrl('');
     this.modoDeEdicao = false;
   }
 
@@ -29,7 +32,9 @@ export class TipoServicosAddEditPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private tipoServicoService: TipoServicosService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastService: ToastService,
+    private router: Router
   ) { }
 
   iniciarEdicao() {
@@ -45,7 +50,7 @@ export class TipoServicosAddEditPage implements OnInit {
       this.modoDeEdicao = true;
     }
     this.tiposServicosForm = this.formBuilder.group({
-      id,
+      id: [this.tipoServico.id],
       nome: [this.tipoServico.nome, Validators.required],
       valor: [this.tipoServico.valor, Validators.required]
     })

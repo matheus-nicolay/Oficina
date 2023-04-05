@@ -11,12 +11,6 @@ export class TipoServicosService {
     { id: 3, nome: 'Revisão freios', valor: 90.12 },
     { id: 4, nome: 'Suspensão', valor: 34.56 },
   ];
-  
-  getById(id: number): TipoServico
-
-  getAll(): TipoServico[]
-
-  update(tipoServico: TipoServico)
 
   private getIndexOfElement(id: number): number {
     return this.tiposServicos.indexOf(this.getById(id));
@@ -32,13 +26,17 @@ export class TipoServicosService {
 
   }
 
-  getAll() {
+  getAll(): TipoServico[] {
     return this.tiposServicos;
+  }
+
+  remove(tipoServico: TipoServico){
+    this.tiposServicos.splice(this.getIndexOfElement(tipoServico.id), 1);
   }
 
   constructor() { }
 
-  getById(id: number) {
+  getById(id: number): TipoServico {
     const tipoServicoSelecionado = this.tiposServicos.filter(
       tipoServico => tipoServico.id === id
     );
