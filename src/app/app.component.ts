@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import { DatabaseService } from './database.service';
+import { databaseName } from './database.statements';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent {
     this.platform.ready().then(async () => {
       this.databaseService.initializePlugin().then(async (ret) => {
         try {
-          const db = await this.databaseService.createConnection("oficina", false, "no-encryption", 1);
+          const db = await this.databaseService.sqliteConnection.retrieveConnection(databaseName, false);
         } catch (err) {
           console.log(`Error: ${err}`);
           this.initPlugin = false;

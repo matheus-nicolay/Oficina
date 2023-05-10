@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    namespace 'ionic.aula1'
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "ionic.aula1"
