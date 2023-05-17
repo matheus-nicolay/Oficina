@@ -17,11 +17,11 @@ const routes: Routes = [
   },
   {
     path: 'tipo-servicos-listagem',
-    loadChildren: () => import('./tipo-servicos/tipo-servicos-listagem/tipo-servicos-listagem.module').then( m => m.TipoServicosListagemPageModule)
+    loadChildren: () => import('./pages/tipo-servicos/tipo-servicos-listagem/tipo-servicos-listagem.module').then( m => m.TipoServicosListagemPageModule)
   },
   {
     path: 'tipo-servicos-add-edit/:id',
-    loadChildren: () => import('./tipo-servicos/tipo-servicos-add-edit/tipo-servicos-add-edit.module').then( m => m.TipoServicosAddEditPageModule)
+    loadChildren: () => import('./pages/tipo-servicos/tipo-servicos-add-edit/tipo-servicos-add-edit.module').then( m => m.TipoServicosAddEditPageModule)
   },
   {
     path: 'pecas-add-edit/:id',
@@ -34,6 +34,14 @@ const routes: Routes = [
   {
     path: 'ordensdeservico-listagem',
     loadChildren: () => import('./pages/ordensdeservico/ordensdeservico-listagem/ordensdeservico-listagem.module').then( m => m.OrdensdeservicoListagemPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'ordensdeservico-add-edit',
+    loadChildren: () => import('./pages/ordensdeservico/ordensdeservico-add-edit/ordensdeservico-add-edit.module').then( m => m.OrdensdeservicoAddEditPageModule)
   },
 ];
 

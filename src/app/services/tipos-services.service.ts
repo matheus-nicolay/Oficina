@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TipoServico } from './models/tipo-servico.model';
+import { TipoServico } from '../models/tipo-servico.model';
 
 @Injectable({
   providedIn: 'root'

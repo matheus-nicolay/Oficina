@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Peca } from "./models/peca.model";
+import { Peca } from "../models/peca.model";
 import { Guid } from "guid-typescript";
 import { Storage } from "@ionic/storage-angular";
 

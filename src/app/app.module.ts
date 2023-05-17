@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormBuilder } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { DatabaseService } from './database.service';
+import { DatabaseService } from './services/database.service';
 
 @NgModule({
   declarations: [AppComponent],
