@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonList } from '@ionic/angular';
 import { OrdemDeServico } from 'src/app/models/ordemdeservico.model';
-import { OrdernsDeServicoService } from 'src/app/ordensdeservico.service';
-import { ToastService } from 'src/app/toast.service';
+import { OrdernsDeServicoService } from 'src/app/services/ordensdeservico.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-ordensdeservico-listagem',

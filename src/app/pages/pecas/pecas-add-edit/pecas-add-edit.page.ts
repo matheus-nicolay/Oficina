@@ -3,8 +3,8 @@ import { Peca } from 'src/app/models/peca.model'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Guid } from 'guid-typescript';
-import { ToastService } from 'src/app/toast.service';
-import { PecasService } from 'src/app/pecas.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { PecasService } from 'src/app/services/pecas.service';
 
 @Component({
   templateUrl: './pecas-add-edit.page.html',

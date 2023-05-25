@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonList } from '@ionic/angular';
 import { TipoServico } from 'src/app/models/tipo-servico.model';
-import { TipoServicosService } from 'src/app/tipos-services.service';
-import { ToastService } from 'src/app/toast.service';
+import { TipoServicosService } from 'src/app/services/tipos-services.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-tipo-servicos-listagem',

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PecasService } from 'src/app/pecas.service';
+import { PecasService } from 'src/app/services/pecas.service';
 import { Peca } from 'src/app/models/peca.model';
-import { ToastService } from 'src/app/toast.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { IonList } from '@ionic/angular';
 import { Guid } from 'guid-typescript';
 

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoServico } from 'src/app/models/tipo-servico.model';
-import { TipoServicosService } from 'src/app/tipos-services.service';
-import { ToastService } from 'src/app/toast.service';
+import { TipoServicosService } from 'src/app/services/tipos-services.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-tipo-servicos-add-edit',
