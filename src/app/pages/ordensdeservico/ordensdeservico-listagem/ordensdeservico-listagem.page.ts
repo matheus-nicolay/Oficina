@@ -28,4 +28,14 @@ export class OrdensdeservicoListagemPage implements OnInit {
     this.ordensDeServico = oss;
   }
 
+  async removerAtendimento(ordemdeservico: OrdemDeServico) {
+    await this.ordensdeservicoService.removeById(ordemdeservico.ordemdeservicoid)
+    .then( async () => {
+      this.ordensDeServico = await this.ordensdeservicoService.getAll();
+      this.toastService.presentToast('Ordem de Serviço removida', 3000, 'top');
+      await this.slidingList.closeSlidingItems(); 
+    })
+    .catch( async (e) => await this.alertService.presentToast('Falha', 'Remoção não foi executada', e, ['Ok']));
+  }
+
 }
