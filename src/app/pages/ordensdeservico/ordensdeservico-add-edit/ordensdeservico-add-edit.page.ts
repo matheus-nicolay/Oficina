@@ -6,8 +6,8 @@ import { Cliente } from 'src/app/models/cliente.model';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { Platform } from '@ionic/angular';
-import { OrdernsDeServicoService } from 'src/app/services/ordensdeservico.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrdensDeServicoService } from 'src/app/services/ordensdeservico.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { AlertService } from 'src/app/services/alert.service';
 
@@ -19,7 +19,7 @@ export class OrdensDeServicoAddEditPage implements OnInit {
   public ordemDeServico!: OrdemDeServico;
   public modoDeEdicao = false;
   public osForm!: FormGroup;
-  public clientes: Cliente[] = [];
+  public clientes:  Cliente[] = [];
   
   constructor(
     private formBuilder: FormBuilder,
@@ -27,31 +27,28 @@ export class OrdensDeServicoAddEditPage implements OnInit {
     private datePicker: DatePicker,
     private platform: Platform,
     private route: ActivatedRoute,
-    private ordensDeServicoService: OrdernsDeServicoService,
-    private toastService: ToastService,
+    private ordensDeServicoService: OrdensDeServicoService,
+    private toastService: ToastService, 
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
   ) { }
 
   async ngOnInit() {
   }
 
-  async ionViewWillEnter() {
+  /* async ionViewWillEnter() {
     const id = this.route.snapshot.paramMap.get('id');
     const clientes = await this.clientesService.getAll();
     this.clientes = clientes;
-
     if(id != null){
       const isIdEmptyGUID = Guid.parse(id).isEmpty();
       const isIdValidGUID = Guid.isGuid(id);
-
-      if (id && !isIdEmptyGUID && isIdValidGUID){
-        this.ordemDeServico = await this.ordensDeServicoService.getByid(id);
-      }else{
+      if (id && !isIdEmptyGUID && isIdValidGUID) {
+        this.ordemDeServico = await this.ordensDeServicoService.getById(id);
+      } else {
         this.ordemDeServico = {ordemdeservicoid: Guid.createEmpty().toString(),clienteid: Guid.createEmpty().toString(), veiculo: '', dataehoraentrada: new Date()};
         this.modoDeEdicao = true;
       }
-
       this.osForm = this.formBuilder.group({
         ordemdeservicoid: [this.ordemDeServico.ordemdeservicoid],
         clienteid: [this.ordemDeServico.clienteid, Validators.required],
@@ -62,8 +59,27 @@ export class OrdensDeServicoAddEditPage implements OnInit {
       });
       this.ordemDeServico = this.osForm.value;
     }
-  }
+  } */
 
+/*  async ionViewWillEnter() {
+    const clientes = await this.clientesService.getAll();
+    this.clientes = clientes;
+    this.ordemDeServico = {
+      ordemdeservicoid: Guid.createEmpty().toString(),
+      clienteid: Guid.createEmpty().toString(),
+      veiculo: '',
+      dataehoraentrada: new Date()
+    };
+    this.modoDeEdicao = true;
+    this.osForm = this.formBuilder.group({
+      ordemdeservicoid: [this.ordemDeServico.ordemdeservicoid],
+      clienteid: [this.ordemDeServico.clienteid, Validators.required],
+      veiculo: [this.ordemDeServico.veiculo, Validators.required],
+      dataentrada: [{ value: this.ordemDeServico.dataehoraentrada.toLocaleDateString(), disabled: !this.modoDeEdicao }, Validators.required],
+      horaentrada: [{ value: this.ordemDeServico.dataehoraentrada.toLocaleTimeString(), disabled: !this.modoDeEdicao }, Validators.required],
+      dataehoraentrada: [this.ordemDeServico.dataehoraentrada]
+    });
+  }*/
   selecionarDataEntrada() {
     if (!this.modoDeEdicao) {
       return;
@@ -117,24 +133,30 @@ export class OrdensDeServicoAddEditPage implements OnInit {
     });
   }
 
-  iniciarEdicao(){
+
+  // Método a ser invocado quando o botão de alterar dados for selecionado
+  iniciarEdicao() {
     this.modoDeEdicao = true;
   }
 
-  cancelarEdicao(){
+  // Método a ser invocado quando o botão de cancelar alteração for selecionado
+  cancelarEdicao() {
     this.osForm.setValue(this.ordemDeServico);
-    this.modoDeEdicao = false;
+  this.modoDeEdicao = false;
   }
-
+  
+  // Método a ser invocado quando o botão de gravar for selecionado
   async submit() {
+    // Validação dos dados informados no formulário. Já trabalhamos com isso.
     if (this.osForm.invalid || this.osForm.pending) {
       await this.alertService.presentAlert('Falha', 'Gravação não foi executada', 'Verifique os dados informados para o atendimento', ['Ok']);
       return;
     }
+    // Aqui extraímos a data e hora da informadas no formulário e convertemos para um Date
     const dataString = new Date(this.osForm.controls['dataentrada'].value).toDateString();
     const horaString = new Date(this.osForm.controls['horaentrada'].value).toTimeString();
     const dataEHora = new Date(dataString + ' ' + horaString);
-
+    // Invocamos o serviço, enviando um objeto com os dados recebidos da visão
     await this.ordensDeServicoService.update(
       {
         ordemdeservicoid: this.osForm.controls['ordemdeservicoid'].value,
@@ -143,7 +165,10 @@ export class OrdensDeServicoAddEditPage implements OnInit {
         dataehoraentrada: dataEHora,
       }
     );
+    // Informamos o usuário do sucesso da operação e o redirecionamos para a listagem
     this.toastService.presentToast('Gravação bem sucedida', 3000, 'top');
     this.router.navigateByUrl('ordensdeservico-listagem');
-  } 
+  }
+
+
 }
