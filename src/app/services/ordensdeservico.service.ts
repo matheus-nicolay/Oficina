@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { OrdemDeServico } from "../models/ordemdeservico.model";
+import { collection, Firestore, getDocs, orderBy, query } from "firebase/firestore";
+import { OrdemDeServico, ordemDeServicoConverter } from "../models/ordemdeservico.model";
 import { DatabaseService } from "./database.service";
 import { databaseName } from "./database.statements";
 import { Guid } from "guid-typescript";
@@ -11,22 +12,19 @@ import { Guid } from "guid-typescript";
 export class OrdensDeServicoService {
 
     constructor(
-        private databaseService: DatabaseService
+        private databaseService: DatabaseService,
+        private _firestore: Firestore
     ) { }
 
-    public async getAll() {
-        const db = await this.databaseService.sqliteConnection.retrieveConnection(databaseName, false);
-        db.open();
-        let returnQuery = await db.query("SELECT * FROM ordensdeservico;");
-        let ordensdeservico: OrdemDeServico[] = [];
-        if (returnQuery.values!.length > 0) {
-            for(let i = 0; i < returnQuery.values!.length; i++) {
-                const ordemdeservico = returnQuery.values![i];
-                console.log(`OS> ${ordemdeservico}`);
-                ordensdeservico.push(ordemdeservico);
-            }
-        }
-        return ordensdeservico;
+    public async getAll(): Promise<OrdemDeServico[]>{
+        const ordensDeServico: OrdemDeServico[] = [];
+        const q = query(collection(this._firestore, "ordensdeservico"), orderBy("dataehoraentrada", "desc")).withConverter(ordemDeServicoConverter);
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            ordensDeServico.push(doc.data());
+        });
+
+        return ordensDeServico;
     }
 
     public async getById(id:string): Promise<any> {
@@ -84,4 +82,5 @@ export class OrdensDeServicoService {
             console.error(e);
         }
     }
+
 }

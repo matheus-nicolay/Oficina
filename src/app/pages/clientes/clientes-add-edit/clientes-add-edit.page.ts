@@ -49,7 +49,7 @@ export class ClientesAddEditPage implements OnInit {
       telefone: [this.cliente.telefone, Validators.required],
       renda: [this.cliente.renda, Validators.required],
       nascimentoForm: [{ value: this.cliente.nascimento.toLocaleDateString(), disabled: !this.modoDeEdicao}, Validators.required],
-      nascimento: ['', Validators.required]
+      nascimento: ['']
     });
   }
   selecionarData() {

@@ -28,8 +28,7 @@ export class OrdensdeservicoListagemPage implements OnInit {
   }
     
   async ionViewWillEnter() {
-    const oss = await this.ordensdeservicoService.getAll();
-    this.ordensDeServico = oss;
+    this.ordensDeServico = await this.ordensdeservicoService.getAll();
   }
 
 
