@@ -33,6 +33,7 @@
     "@ionic/cli": "^7.1.1",
     "@ionic/storage-angular": "^3.0.6",
     "android": "0.0.8",
+    "angular-core": "0.0.5",
     "cordova-plugin-datepicker": "^0.9.3",
     "firebase": "^9.22.2",
     "guid-typescript": "^1.0.9",
